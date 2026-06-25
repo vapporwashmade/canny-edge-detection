@@ -1,16 +1,31 @@
-# This is a sample Python script.
+import cv2
+import matplotlib
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
+# Loading grayscale image
+image_path = "pommel.jpg"
+img_gray = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Gaussian blur
+img_blur = cv2.GaussianBlur(img_gray, (5, 5), 0)
 
+# Canny edge detection
+edges = cv2.Canny(img_blur, threshold1=150, threshold2=350)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+cv2.imwrite("pommel_line_drawing.jpg", edges)
+# Plot Original Grayscale
+plt.subplot(1, 2, 1)
+plt.title("Original (Grayscale)")
+plt.imshow(img_gray, cmap='gray')
+plt.axis('off')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Plot Canny Edges
+plt.subplot(1, 2, 2)
+plt.title("Canny Edge Detection")
+plt.imshow(edges, cmap='gray')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
