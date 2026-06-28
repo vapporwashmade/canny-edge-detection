@@ -1,5 +1,4 @@
 import cv2
-
 def nothing(x):
     pass
 
