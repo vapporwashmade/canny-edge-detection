@@ -1,9 +1,12 @@
 import cv2
 import numpy as np
-from rembg import remove
+from rembg import remove, new_session
+
+session = new_session("u2net_human_seg")
 
 img = cv2.imread("pommel.jpg")
-img_no_bg = remove(img)
+
+img_no_bg = remove(img, session=session)
 cv2.imwrite("pommel_no_bg.jpg", img_no_bg)
 
 alpha_channel = img_no_bg[:, :, 3]
